@@ -1,7 +1,9 @@
 package fr.outlook.marro.laurent.firebaseoc.Helpers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,15 +11,30 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
+import butterknife.BindView;
+import fr.outlook.marro.laurent.firebaseoc.Auth.ProfileActivity;
 import fr.outlook.marro.laurent.firebaseoc.R;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
+
     //FOR DESIGN
+    @BindView(R.id.connected_image) ImageView imageViewProfile;
+    @BindView(R.id.surnameName) TextView textViewUsername;
+    @BindView(R.id.surnameNameEmail) TextView textViewEmail;
+
+    //FOR UX
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
 
@@ -31,6 +48,7 @@ public class HomeActivity extends AppCompatActivity
         this.configureDrawerLayout();
         this.configureNavigationView();
         this.configureBottomNavigationView();
+        this.configureProfile();
     }
 
     @Override
@@ -44,7 +62,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     //
-    // UI
+    // UX
     //
 
     @Override
@@ -96,7 +114,7 @@ public class HomeActivity extends AppCompatActivity
     private void configureToolBar() {
         this.toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(PARAMETERS[0]);;
+        Objects.requireNonNull(getSupportActionBar()).setTitle(PARAMETERS[0]);
     }
 
     // 2 - Configure Drawer Layout
@@ -118,5 +136,23 @@ public class HomeActivity extends AppCompatActivity
     private void configureBottomNavigationView() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.activity_home_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+    }
+
+    // --------------------
+    // UTILS
+    // --------------------
+
+    @Nullable
+    protected FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
+    protected Boolean isCurrentUserLogged(){ return (this.getCurrentUser() != null); }
+
+    // --------------------
+    // UI
+    // --------------------
+
+    // Update UI when activity is creating
+    private void configureProfile(){
+        Intent myIntent = new Intent(this, ProfileActivity.class);
+        startActivity(myIntent);
     }
 }
