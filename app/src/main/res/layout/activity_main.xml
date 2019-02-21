@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- MAIN CONTAINER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/cabernet"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+            <!-- IMAGE VIEW LOGO -->
+            <ImageView
+            android:layout_width="@dimen/ImageViewWH"
+            android:layout_height="@dimen/ImageViewWH"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/default_large_margin"
+            android:background="@drawable/logo"
+            tools:ignore="ContentDescription" />
+
+        <!-- TITLE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:text="@string/go4lunch"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold" />
+
+        <!-- DESCRIPTION -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:text="@string/main_activity_description"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="@dimen/description_text_size"
+            android:textStyle="italic" />
+
+        <!-- BUTTONS CONTAINER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/default_large_margin"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- BUTTON FACEBOOK -->
+            <TextView
+                android:id="@+id/main_activity_button_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_large_margin"
+                android:background="#3b5998"
+                android:gravity="center"
+                android:padding="@dimen/default_large_margin"
+                android:text="@string/facebook"
+                android:textColor="#fff"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold" />
+
+            <!-- BUTTON GOOGLE -->
+            <TextView
+                android:id="@+id/main_activity_button_google"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_large_margin"
+                android:background="#dd4b39"
+                android:gravity="center"
+                android:padding="@dimen/default_large_margin"
+                android:text="@string/google"
+                android:textColor="#fff"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold" />
+
+            <!-- BUTTON EMAIL -->
+            <TextView
+                android:id="@+id/main_activity_button_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_large_margin"
+                android:background="#607D8B"
+                android:gravity="center"
+                android:padding="@dimen/default_large_margin"
+                android:text="@string/email"
+                android:textColor="#fff"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

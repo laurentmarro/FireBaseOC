@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "623475369367",
+    "firebase_url": "https://fir-oc-ales.firebaseio.com",
+    "project_id": "fir-oc-ales",
+    "storage_bucket": "fir-oc-ales.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623475369367:android:4a296f656d920785",
+        "android_client_info": {
+          "package_name": "fr.outlook.marro.laurent.firebaseoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623475369367-069r96cb803b239c46g8l3lfs45ipt5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.outlook.marro.laurent.firebaseoc",
+            "certificate_hash": "9f37e13e32b3b8fcce20e3d48362f2823efe0339"
+          }
+        },
+        {
+          "client_id": "623475369367-q7e6vabfccmq4sn51gq1hpqaqh49np1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1-DlMJKwosbolBY4nCTg_AHt0yi_PwqY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623475369367-q7e6vabfccmq4sn51gq1hpqaqh49np1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

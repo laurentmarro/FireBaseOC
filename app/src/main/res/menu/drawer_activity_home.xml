@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/activity_restaurant"
+            android:icon="@drawable/restaurant_menu_hdpi"
+            android:title="@string/your_lunch" />
+        <item
+            android:id="@+id/activity_settings"
+            android:icon="@drawable/settings_hdpi"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/activity_logout"
+            android:icon="@drawable/power_hdpi"
+            android:title="@string/logout" />
+    </group>
+
+</menu>

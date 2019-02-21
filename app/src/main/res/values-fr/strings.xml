@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="connection_succeed">Authentification réussie !</string>
+    <string name="error_unknown_error">Erreur inconnue</string>
+    <string name="error_no_internet">Aucune connexion internet !</string>
+    <string name="error_authentication_canceled">Authentification annulée</string>
+    <string name="google">Enregistrez-vous avec Google</string>
+    <string name="facebook">Enregistrez-vous avec Facebook</string>
+    <string name="email">Enregistrez-vous par Email</string>
+    <string name="main_activity_description">Trouvez un bon restaurant et invitez vos collègues à déjeuner!</string>
+    <string name="go4lunch">Déjeuner</string>
+    <string name="button_login_text_not_logged">Connexion</string>
+    <string name="button_login_text_logged">Accès à Go4Lunch</string>
+    <string name="bottom_navigation_menu_workmates">Collègues</string>
+    <string name="bottom_navigation_menu_listview">Liste</string>
+    <string name="bottom_navigation_menu_mapview">Carte</string>
+    <string name="your_lunch">RESTAURANT</string>
+    <string name="settings">REGLAGES</string>
+    <string name="logout">DECONNECTION</string>
+    <string name="search">Recherche</string>
+    <string name="Surname_Name">Prernom NOM</string>
+    <string name="surname_name_email">prenom.nom@gmail.com</string>
+    <string name="laurent_is_eating_french_le_zinc">Laurent mange français (Le Zinc)</string>
+    <string name="restaurant_name">Le Zinc</string>
+    <string name="type">"Français - "</string>
+    <string name="adress">12, rue du Faubourg Poisonnière</string>
+    <string name="opening_hours">Ouvre à 19h</string>
+    <string name="type2">Restaurant Français</string>
+    <string name="call">APPEL</string>
+    <string name="website">SITEWEB</string>
+    <string name="like">AIME</string>
+    <string name="is_joining">" Laurent va venir !"</string>
+    <string name="No_decided_yet">Laurent n\'a pas décidé</string>
+    <string name="userpicture">Photo de l\'utilisateur</string>
+    <string name="menu">Menu</string>
+    <string name="available_workmates">Collègues disponibles</string>
+    <string name="im_hungry">J\'ai faim</string>
+</resources>

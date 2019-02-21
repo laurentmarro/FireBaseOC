@@ -1,0 +1,45 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">FirebaseOC</string>
+    <string name="main_activity_description">Find a nice restaurant and invite your co-workers to lunch!</string>
+    <string name="email">Sign-in with Email</string>
+    <string name="facebook">Sign-in Facebook</string>
+    <string name="google">Sign-in Google</string>
+    <string name="error_authentication_canceled">error_authentication_canceled</string>
+    <string name="error_no_internet">error_no_internet</string>
+    <string name="connection_succeed">Connection Succed</string>
+    <string name="go4lunch">Go4Lunch</string>
+    <string name="button_login_text_logged">Go4Lunch Access</string>
+    <string name="button_login_text_not_logged">Connexion</string>
+    <string name="facebook_application_id" translatable="false">1038617199859273</string>
+    <string name="facebook_login_protocol_scheme" translatable="false" tools:ignore="UnusedResources">fb1038617199859273</string>
+    <string name="error_unknown_error">unknown_error</string>
+    <string name="bottom_navigation_menu_workmates">Workmates</string>
+    <string name="bottom_navigation_menu_mapview">Map View</string>
+    <string name="bottom_navigation_menu_listview">List View</string>
+    <string name="your_lunch">YOUR LUNCH</string>
+    <string name="settings">SETTINGS</string>
+    <string name="logout">LOGOUT</string>
+    <string name="search">Search</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="Surname_Name">Surname NAME</string>
+    <string name="surname_name_email">surname.name@gmail.com</string>
+    <string name="laurent_is_eating_french_le_zinc">Laurent is eating french (Le Zinc)</string>
+    <string name="restaurant_name">Le Zinc</string>
+    <string name="distance" translatable="false">598m</string>
+    <string name="type">"French - "</string>
+    <string name="adress">12, rue du Faubourg Poisonnière</string>
+    <string name="opening_hours">Open until 7pm</string>
+    <string name="number3" translatable="false">(3)</string>
+    <string name="type2">"French restaurant"</string>
+    <string name="call">CALL</string>
+    <string name="website">WEBSITE</string>
+    <string name="like">LIKE</string>
+    <string name="is_joining">Laurent is joining!</string>
+    <string name="No_decided_yet">Laurent hasn\'t decide yet</string>
+    <string name="urlnopicture" translatable="false">https://upload.wikimedia.org/wikipedia/en/d/d3/No-picture.jpg</string>
+    <string name="userpicture">user picture</string>
+    <string name="menu">Menu</string>
+    <string name="im_hungry">I\'m Hungry</string>
+    <string name="available_workmates">Available workmates</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigationView"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@drawable/cabernet"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginTop="@dimen/textview_margin_top"
+        android:id="@+id/applicationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/go4lunch"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:textSize="@dimen/nav_header_textsize"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:contentDescription="@string/userpicture"
+        android:id="@+id/connected_image"
+        android:layout_width="@dimen/nav_header_wh"
+        android:layout_height="@dimen/nav_header_wh"
+        android:layout_marginStart="@dimen/connected_image_margin_start"
+        android:layout_marginTop="@dimen/connected_image_margin_top" />
+
+    <TextView
+        android:id="@+id/surnameName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/surname_name_margin_start"
+        android:layout_marginTop="@dimen/surname_name_margin_top"
+        android:text="@string/Surname_Name"
+        android:textColor="#fff"
+        android:textSize="@dimen/surname_name_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/surnameNameEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/surname_name_email_margin_start"
+        android:layout_marginTop="@dimen/surname_name_email_margin_top"
+        android:text="@string/surname_name_email"
+        android:textColor="#fff"
+        android:textSize="@dimen/surname_name_email_text_size"/>
+
+</android.support.design.widget.CoordinatorLayout>

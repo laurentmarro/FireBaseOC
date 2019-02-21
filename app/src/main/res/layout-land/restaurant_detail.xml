@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/restaurant_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme.NoTitle2">
+
+    <ImageView
+        android:id="@+id/restaurant_picture_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/restaurant_picture_image_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/restaurant_exemple"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:srcCompat="@drawable/cabernet"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/restaurant_detail_linear_layout_height"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/restaurant_picture_image" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/restaurant_detail_description_margin_start_top"
+        android:layout_marginTop="@dimen/restaurant_detail_description_margin_start_top"
+        android:textSize="@dimen/restaurant_detail_description_text_size"
+        android:text="@string/restaurant_name"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/restaurant_picture_image" />
+
+    <ImageView
+        android:id="@+id/restaurant_star1"
+        android:layout_width="@dimen/restaurant_detail_star1_wh"
+        android:layout_height="@dimen/restaurant_detail_star1_wh"
+        android:src="@drawable/yellow_star"
+        app:layout_constraintStart_toEndOf="@id/description"
+        app:layout_constraintTop_toBottomOf="@id/restaurant_picture_image"
+        android:layout_marginStart="@dimen/restaurant_star1_marginstart"
+        android:layout_marginTop="@dimen/restaurant_detail_star1_starttop"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/restaurant_star2"
+        android:layout_width="@dimen/restaurant_detail_star1_wh"
+        android:layout_height="@dimen/restaurant_detail_star1_wh"
+        android:src="@drawable/yellow_star"
+        app:layout_constraintStart_toEndOf="@id/restaurant_star1"
+        app:layout_constraintTop_toBottomOf="@id/restaurant_picture_image"
+        android:layout_marginTop="@dimen/restaurant_detail_star2_et_3_margin_top"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/restaurant_star3"
+        android:layout_width="@dimen/restaurant_detail_star1_wh"
+        android:layout_height="@dimen/restaurant_detail_star1_wh"
+        android:src="@drawable/yellow_star"
+        app:layout_constraintStart_toEndOf="@id/restaurant_star2"
+        app:layout_constraintTop_toBottomOf="@id/restaurant_picture_image"
+        android:layout_marginTop="@dimen/restaurant_detail_star2_et_3_margin_top"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/restaurant_type_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/restaurant_type_detail_margin_start_top"
+        android:layout_marginTop="@dimen/restaurant_type_detail_margin_start_top"
+        android:textSize="@dimen/restaurant_detail_type_address_text_size"
+        android:text="@string/type2"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description" />
+
+    <TextView
+        android:id="@+id/restaurant_address_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/restaurant_type_detail_margin_start_top"
+        android:layout_marginEnd="@dimen/restaurant_type_detail_margin_start_top"
+        android:text="@string/adress"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/restaurant_detail_type_address_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/restaurant_detail_linear_layout_height"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+
+    <TextView
+        android:id="@+id/call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/restaurant_type_margin_start_text_view_size"
+        android:layout_marginBottom="@dimen/restaurant_type_margin_bottom"
+        android:text="@string/call"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/restaurant_detail_type_address_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/restaurant_type_margin_start_text_view_size"
+        android:layout_marginBottom="@dimen/restaurant_type_margin_bottom"
+        android:text="@string/website"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/restaurant_detail_type_address_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/restaurant_type_margin_bottom"
+        android:text="@string/like"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/restaurant_detail_type_address_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/like_image"
+        android:layout_width="@dimen/restaurant_detail_images_wh"
+        android:layout_height="@dimen/restaurant_detail_images_wh"
+        android:layout_marginTop="@dimen/restaurant_detail_imageview_margin"
+        android:src="@drawable/orange_star"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/call_image"
+        android:layout_width="@dimen/restaurant_detail_images_wh"
+        android:layout_height="@dimen/restaurant_detail_images_wh"
+        android:layout_marginStart="@dimen/start"
+        android:layout_marginTop="@dimen/restaurant_detail_imageview_margin"
+        android:src="@drawable/orange_phone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/website_image"
+        android:layout_width="@dimen/restaurant_detail_images_wh"
+        android:layout_height="@dimen/restaurant_detail_images_wh"
+        android:layout_marginTop="@dimen/restaurant_detail_imageview_margin"
+        android:layout_marginEnd="@dimen/end"
+        android:src="@drawable/globe_orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+        tools:ignore="ContentDescription" />
+
+    <FrameLayout
+        android:id="@+id/frame_joining"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/linearLayout2"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/icon_choice"
+        android:layout_width="@dimen/nav_header_wh"
+        android:layout_height="@dimen/nav_header_wh"
+        android:layout_marginTop="@dimen/restaurant_detail_frame_margin_top"
+        android:layout_marginEnd="@dimen/restaurant_detail_imageview_margin"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        app:civ_border_color="#000"
+        app:civ_border_width="1dp"
+        app:civ_shadow="true"
+        app:civ_shadow_color="#000"
+        app:civ_shadow_radius="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_add" />
+
+</android.support.constraint.ConstraintLayout>
