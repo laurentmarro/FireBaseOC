@@ -4,7 +4,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import fr.outlook.marro.laurent.firebaseoc.models.User;
 
 public class UserHelper {
@@ -13,15 +12,17 @@ public class UserHelper {
 
     // --- COLLECTION REFERENCE ---
 
-    public static CollectionReference getUsersCollection(){
+    private static CollectionReference getUsersCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }
 
     // --- CREATE ---
 
-    public static Task<Void> createUser(String uid, String username, String email, String urlPicture) {
-        User userToCreate = new User(uid, username, email, urlPicture);
-        return UserHelper.getUsersCollection().document(uid).set(userToCreate);
+    public static Task<Void> createUser(String uid, String username, String email, String photoURL) {
+        User userToCreate = new User(uid, username, email, photoURL);
+        return UserHelper.getUsersCollection()
+                .document(uid)
+                .set(userToCreate);
     }
 
     // --- GET ---
