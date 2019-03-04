@@ -1,25 +1,35 @@
 package fr.outlook.marro.laurent.firebaseoc;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import java.util.Collections;
 import java.util.Objects;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.outlook.marro.laurent.firebaseoc.Api.UserHelper;
-import fr.outlook.marro.laurent.firebaseoc.Base.BaseActivity;
 import fr.outlook.marro.laurent.firebaseoc.Helpers.HomeActivity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
-    public int getFragmentLayout() {
-        return R.layout.activity_main;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this); //Configure Butterknife
+        this.updateUX();
     }
 
     // --------------------
@@ -90,19 +100,14 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // Handle SignIn Activities response on activity result
         this.handleResponseAfterSignIn(requestCode, resultCode, data);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        this.updateUIWhenResuming();
+        updateUX();
     }
 
     // --------------------
     // Update UI when activity is resuming
     // --------------------
 
-    private void updateUIWhenResuming(){
+    private void updateUX(){
         this.EmailButton.setText(this.isCurrentUserLogged()
                 ? getString(R.string.button_login_text_logged) :
                 getString(R.string.email));
@@ -218,5 +223,21 @@ public class MainActivity extends BaseActivity {
                 }
             }
         }
+    }
+
+    protected FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
+    protected Boolean isCurrentUserLogged(){ return (this.getCurrentUser() != null); }
+
+    // --------------------
+    // ERROR HANDLER
+    // --------------------
+
+    protected OnFailureListener onFailureListener(){
+        return new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
+            }
+        };
     }
 }

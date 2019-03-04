@@ -1,5 +1,7 @@
 package fr.outlook.marro.laurent.firebaseoc.Helpers;
 
+import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,22 +11,36 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.Objects;
+import fr.outlook.marro.laurent.firebaseoc.Api.UserHelper;
 import fr.outlook.marro.laurent.firebaseoc.R;
+import fr.outlook.marro.laurent.firebaseoc.models.User;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
-
     // --------------------
-    //FOR UX
+    // FOR UX
     // --------------------
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
+    private String userName, photoUrl, email;
+    private ImageView imageViewProfile;
+    private TextView textViewUsername, textViewEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +62,6 @@ public class HomeActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    // --------------------
-    // UX
-    // --------------------
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,8 +102,6 @@ public class HomeActivity extends AppCompatActivity
                 Log.i("TAG", "workmates");
                 toolbar.setTitle(R.string.available_workmates);
                 break;
-            case R.id.activity_home_search:
-                Log.i("TAG", "Search");
             default:
                 break;
         }
@@ -136,9 +146,46 @@ public class HomeActivity extends AppCompatActivity
     // UI
     // --------------------
 
+    protected FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
+
+    @SuppressLint("ResourceType")
     private void updateUI() {
         // Display in the drawerLayout : nav_header_home
-    }
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        View navigationViewHeaderView =  navigationView.getHeaderView(0);
 
+        textViewUsername = navigationViewHeaderView.findViewById(R.id.surnameName);
+        textViewUsername.setText(userName);
+        textViewEmail = navigationViewHeaderView.findViewById(R.id.surnameNameEmail);
+        textViewEmail.setText(email);
+        imageViewProfile = navigationViewHeaderView.findViewById(R.id.connected_image);
+
+        // Get datas from firebase
+
+        if (this.getCurrentUser() != null) {
+            email = TextUtils.isEmpty(this.getCurrentUser().getEmail())
+                    ? getString(R.string.surname_name_email) : this.getCurrentUser().getEmail();
+
+            this.textViewEmail.setText(email);
+
+            UserHelper.getUser(Objects.requireNonNull(this.getCurrentUser()).getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    User currentUser = documentSnapshot.toObject(User.class);
+                    userName = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.Surname_Name) : currentUser.getUsername();
+                    textViewUsername.setText(userName);
+                }
+            });
+
+            Uri photo = this.getCurrentUser().getPhotoUrl();
+            if (photo != null) {
+                photoUrl = String.valueOf(this.getCurrentUser().getPhotoUrl());
+                Glide.with(this)
+                        .load(photoUrl)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageViewProfile);
+            }
+        }
+    }
 
 }

@@ -21,7 +21,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Helpers.HomeActivity" />
-        <activity android:name=".Auth.ProfileActivity" />
     </application>
 
 </manifest>
