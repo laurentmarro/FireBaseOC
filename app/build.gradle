@@ -50,7 +50,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-firestore:3.1.3'
 
     // FACEBOOK
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:4.40.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

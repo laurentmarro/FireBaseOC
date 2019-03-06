@@ -47,4 +47,20 @@
     <string name="searchWorkmates">Search workmates</string>
     <string name="language">en</string>
     <string name="signoutdone">Sign out done</string>
+
+    <!-- MENTOR_CHAT ACTIVITY -->
+    <string name="toolbar_title_mentor_chat_activity" translatable="false">Chats de discussions</string>
+    <string name="text_input_title_mentor_chat_activity" translatable="false">Composer votre message</string>
+    <string name="button_title_mentor_chat_activity" translatable="false">ENVOYER</string>
+    <string name="text_view_mentor_chat_error" translatable="false">Ce fil de discussion ne contient pour le moment aucun message&#8230;</string>
+    <string name="popup_title_permission_files_access" translatable="false">Cette application a besoin de permission pour fonctionner.</string>
+    <string name="toast_title_no_image_chosen" translatable="false">Aucune image choisie&#8230;</string>
+    <string name="image_view_profile" translatable="false">Image View Profile</string>
+    <string name="second_image" translatable="false">Second Image</string>
+    <string name="image_sent" translatable="false">Image Sent</string>
+    <string name="add_file_button" translatable="false">Add File Button</string>
+    <string name="image_choosen" translatable="false">Image Choosen</string>
+    <string name="button_chat_android" translatable="false">Button Chat Android</string>
+    <string name="button_chat_firebase" translatable="false">Button Chat Firebase</string>
+    <string name="mentor_chat_bug_button" translatable="false">Mentor Chat Bug Button</string>
 </resources>

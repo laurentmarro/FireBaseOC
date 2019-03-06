@@ -8,4 +8,8 @@
     <color name="colorAccent">#FFF</color>
     <color name="colorAccentDark">#000</color>
 
+    <color name="colorGreen">#6BB18C</color>
+    <color name="colorSandLight">#ECDAAF</color>
+    <color name="colorSand">#EBCB94</color>
+
 </resources>

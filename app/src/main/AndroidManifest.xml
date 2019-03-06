@@ -32,6 +32,10 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        <!-- MENTOR CHAT ACTIVITY -->
+        <activity android:name=".mentor_chat.MentorChatActivity"
+            android:label="@string/toolbar_title_mentor_chat_activity"
+            android:parentActivityName=".Helpers.HomeActivity"/>
 
     </application>
 </manifest>
