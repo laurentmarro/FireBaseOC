@@ -1,6 +1,9 @@
 package fr.outlook.marro.laurent.firebaseoc.Helpers;
 
 import android.annotation.SuppressLint;
+import android.app.SearchManager;
+import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,10 +13,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,7 +35,8 @@ import fr.outlook.marro.laurent.firebaseoc.R;
 import fr.outlook.marro.laurent.firebaseoc.models.User;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        BottomNavigationView.OnNavigationItemSelectedListener{
 
     // --------------------
     // FOR UX
@@ -41,6 +47,7 @@ public class HomeActivity extends AppCompatActivity
     private String userName, photoUrl, email;
     private ImageView imageViewProfile;
     private TextView textViewUsername, textViewEmail;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +72,51 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_home, menu);
+        // Inflate the options menu from XML
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_activity_home, menu);
+
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+
+        // Expanding the search view
+        searchView.setIconified(false);
+        searchView.setIconifiedByDefault(false);
+
+        // Code for changing the textcolor and hint color for the search view
+
+        SearchView.SearchAutoComplete searchAutoComplete =
+                searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchAutoComplete.setHintTextColor(Color.GRAY);
+        searchView.setBackgroundColor(Color.WHITE);
+        searchAutoComplete.setTextColor(Color.BLACK);
+
+        // Code for changing the search icon
+        ImageView searchIcon = searchView.findViewById(android.support.v7.appcompat.R.id.search_mag_icon);
+        searchIcon.setImageResource(R.drawable.baseline_search_black_24dp);
+
+        // Code for changing the voice search icon
+        ImageView voiceIcon = searchView.findViewById(android.support.v7.appcompat.R.id.search_voice_btn);
+        voiceIcon.setImageResource(R.drawable.baseline_mic_black_24dp);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.i("TAG", "onQueryTextSubmit: "+query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.i("TAG", "onQueryTextChange: "+newText);
+                return false;
+            }
+        });
         return true;
     }
 
@@ -91,16 +141,19 @@ public class HomeActivity extends AppCompatActivity
                 // ACTIVITY TO DO
                 Log.i("TAG", "Mapview");
                 toolbar.setTitle(R.string.im_hungry);
+                searchView.setQueryHint(getString(R.string.searchRestaurants));
                 break;
             case R.id.listview:
                 Log.i("TAG", "Listview");
                 toolbar.setTitle(R.string.im_hungry);
+                searchView.setQueryHint(getString(R.string.searchRestaurants));
                 // ACTIVITY TO DO
                 break;
             case R.id.workmates:
                 // ACTIVITY TO DO
                 Log.i("TAG", "workmates");
                 toolbar.setTitle(R.string.available_workmates);
+                searchView.setQueryHint(getString(R.string.searchWorkmates));
                 break;
             default:
                 break;
@@ -187,5 +240,4 @@ public class HomeActivity extends AppCompatActivity
             }
         }
     }
-
 }

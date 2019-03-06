@@ -35,4 +35,8 @@
     <string name="menu">Menu</string>
     <string name="available_workmates">Collègues disponibles</string>
     <string name="im_hungry">J\'ai faim</string>
+    <string name="micro">micro</string>
+    <string name="searchRestaurants">Restaurants...</string>
+    <string name="searchWorkmates">Collègues...</string>
+    <string name="language">fr</string>
 </resources>
