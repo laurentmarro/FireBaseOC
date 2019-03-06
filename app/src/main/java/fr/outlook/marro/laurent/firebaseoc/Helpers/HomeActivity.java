@@ -3,6 +3,7 @@ package fr.outlook.marro.laurent.firebaseoc.Helpers;
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +37,7 @@ import fr.outlook.marro.laurent.firebaseoc.Api.UserHelper;
 import fr.outlook.marro.laurent.firebaseoc.Fragments.ListFragment;
 import fr.outlook.marro.laurent.firebaseoc.Fragments.MapFragment;
 import fr.outlook.marro.laurent.firebaseoc.Fragments.WorkmateFragment;
+import fr.outlook.marro.laurent.firebaseoc.MainActivity;
 import fr.outlook.marro.laurent.firebaseoc.R;
 import fr.outlook.marro.laurent.firebaseoc.models.User;
 
@@ -46,6 +49,7 @@ public class HomeActivity extends AppCompatActivity
     // FOR UX
     // --------------------
 
+    private static final int SIGN_OUT_TASK = 10;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private String userName, photoUrl, email;
@@ -61,6 +65,7 @@ public class HomeActivity extends AppCompatActivity
         this.configureDrawerLayout();
         this.configureNavigationView();
         this.configureBottomNavigationView();
+        this.configureFirstFragment();
         this.updateUI();
     }
 
@@ -140,7 +145,7 @@ public class HomeActivity extends AppCompatActivity
                 break;
             case R.id.activity_logout:
                 Log.i("TAG", "Activity Logout");
-                // ACTIVITY TO DO
+                signOutUserFromFirebase();
                 break;
             case R.id.mapview:
                 Log.i("TAG", "Mapview");
@@ -201,6 +206,12 @@ public class HomeActivity extends AppCompatActivity
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
+    // 5- Configure First Fragment
+    private void configureFirstFragment(){
+        Fragment selectedFragment = new MapFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+    }
+
     // --------------------
     // UI
     // --------------------
@@ -245,5 +256,32 @@ public class HomeActivity extends AppCompatActivity
                         .into(imageViewProfile);
             }
         }
+    }
+
+    private void signOutUserFromFirebase(){
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted(SIGN_OUT_TASK));
+    }
+
+    private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(final int origin){
+        return new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                switch (origin){
+                    case SIGN_OUT_TASK:
+                        Log.i("TAG", getString(R.string.signoutdone));
+                        startMainActivity();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+    }
+
+    private void startMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
