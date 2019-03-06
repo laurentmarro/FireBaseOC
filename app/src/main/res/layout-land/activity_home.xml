@@ -15,7 +15,17 @@
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <include layout="@layout/toolbar"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/marginupanddown"
+            android:layout_marginTop="@dimen/marginupanddown"
+            app:layout_constraintBottom_toBottomOf="@id/activity_home_bottom_navigation"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/activity_home_bottom_navigation"

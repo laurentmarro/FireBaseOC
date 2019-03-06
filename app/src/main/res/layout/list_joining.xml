@@ -2,22 +2,21 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/list_joining_layout_margin"
     android:orientation="horizontal">
 
-    <com.mikhaellopez.circularimageview.CircularImageView
+    <ImageView
         android:id="@+id/workmates_image"
         android:layout_width="@dimen/nav_header_wh"
         android:layout_height="@dimen/nav_header_wh"
         android:layout_marginStart="@dimen/nav_header_marginstart"
-        app:civ_border_color="#000"
-        app:civ_border_width="@dimen/border_width"
-        app:civ_shadow="true"
-        app:civ_shadow_color="#000"
-        app:civ_shadow_radius="0"
-        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"
+        tools:ignore="ContentDescription,MissingConstraints">
+    </ImageView>
+
 
     <TextView
         android:id="@+id/doing"
@@ -29,6 +28,8 @@
         android:textStyle="bold"
         android:text="@string/is_joining"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#000" />
+        android:textColor="#000"
+        tools:ignore="MissingConstraints">
 
+    </TextView>
 </android.support.constraint.ConstraintLayout>

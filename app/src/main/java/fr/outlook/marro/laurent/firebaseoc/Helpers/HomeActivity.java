@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,6 +32,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.Objects;
 import fr.outlook.marro.laurent.firebaseoc.Api.UserHelper;
+import fr.outlook.marro.laurent.firebaseoc.Fragments.ListFragment;
+import fr.outlook.marro.laurent.firebaseoc.Fragments.MapFragment;
+import fr.outlook.marro.laurent.firebaseoc.Fragments.WorkmateFragment;
 import fr.outlook.marro.laurent.firebaseoc.R;
 import fr.outlook.marro.laurent.firebaseoc.models.User;
 
@@ -123,6 +127,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         // Handle Navigation Item Click
+        Fragment selectedFragment = new MapFragment();
         int id = menuItem.getItemId();
         switch (id) {
             case R.id.activity_restaurant:
@@ -138,27 +143,28 @@ public class HomeActivity extends AppCompatActivity
                 // ACTIVITY TO DO
                 break;
             case R.id.mapview:
-                // ACTIVITY TO DO
                 Log.i("TAG", "Mapview");
                 toolbar.setTitle(R.string.im_hungry);
                 searchView.setQueryHint(getString(R.string.searchRestaurants));
+                selectedFragment = new MapFragment();
                 break;
             case R.id.listview:
                 Log.i("TAG", "Listview");
                 toolbar.setTitle(R.string.im_hungry);
                 searchView.setQueryHint(getString(R.string.searchRestaurants));
-                // ACTIVITY TO DO
+                selectedFragment = new ListFragment();
                 break;
             case R.id.workmates:
-                // ACTIVITY TO DO
                 Log.i("TAG", "workmates");
                 toolbar.setTitle(R.string.available_workmates);
                 searchView.setQueryHint(getString(R.string.searchWorkmates));
+                selectedFragment = new WorkmateFragment();
                 break;
             default:
                 break;
         }
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
