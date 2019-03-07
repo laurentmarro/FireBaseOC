@@ -10,17 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
         <activity
-            android:name=".MainActivity"
+            android:name=".Controllers.Activities.MainActivity"
             android:theme="@style/AppTheme.NoTitle"
             tools:ignore="InnerclassSeparator"> <!-- DISABLE TOOLBAR IN MAIN ACTIVITY -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Helpers.HomeActivity">
+        <activity android:name=".Controllers.Activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -32,10 +33,12 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <!-- MENTOR CHAT ACTIVITY -->
-        <activity android:name=".mentor_chat.MentorChatActivity"
-            android:label="@string/toolbar_title_mentor_chat_activity"
-            android:parentActivityName=".Helpers.HomeActivity"/>
+
+        <activity android:name=".Controllers.Activities.ChatActivity"
+            android:theme="@style/AppTheme.NoTitle"
+            tools:ignore="InnerclassSeparator"> <!-- DISABLE TOOLBAR IN CHAT ACTIVITY -->
+        </activity>
 
     </application>
+
 </manifest>

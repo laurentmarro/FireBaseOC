@@ -1,4 +1,4 @@
-package fr.outlook.marro.laurent.firebaseoc.models;
+package fr.outlook.marro.laurent.firebaseoc.Models;
 
 import com.google.firebase.firestore.ServerTimestamp;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package fr.outlook.marro.laurent.firebaseoc.Helpers;
+package fr.outlook.marro.laurent.firebaseoc.Controllers.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
@@ -34,12 +34,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.Objects;
 import fr.outlook.marro.laurent.firebaseoc.Api.UserHelper;
-import fr.outlook.marro.laurent.firebaseoc.Fragments.ListFragment;
-import fr.outlook.marro.laurent.firebaseoc.Fragments.MapFragment;
-import fr.outlook.marro.laurent.firebaseoc.Fragments.WorkmateFragment;
-import fr.outlook.marro.laurent.firebaseoc.MainActivity;
+import fr.outlook.marro.laurent.firebaseoc.Controllers.Fragments.ListFragment;
+import fr.outlook.marro.laurent.firebaseoc.Controllers.Fragments.MapFragment;
+import fr.outlook.marro.laurent.firebaseoc.Controllers.Fragments.WorkmateFragment;
 import fr.outlook.marro.laurent.firebaseoc.R;
-import fr.outlook.marro.laurent.firebaseoc.models.User;
+import fr.outlook.marro.laurent.firebaseoc.Models.User;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -138,6 +137,10 @@ public class HomeActivity extends AppCompatActivity
             case R.id.activity_restaurant:
                 Log.i("TAG", "Activity Restaurant");
                 // ACTIVITY TO DO
+                break;
+            case R.id.activity_chat:
+                Log.i("TAG", "Activity chat");
+                startChatActivity();
                 break;
             case R.id.activity_settings:
                 Log.i("TAG", "Activity Settings");
@@ -283,5 +286,10 @@ public class HomeActivity extends AppCompatActivity
     private void startMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void startChatActivity(){
+        Intent chatIntent = new Intent(this, ChatActivity.class);
+        startActivity(chatIntent);
     }
 }

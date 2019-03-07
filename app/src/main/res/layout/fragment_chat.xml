@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controllers.Fragments.MapFragment">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bottom_navigation_menu_mapview" />
+    android:background="@color/colorPrimary"
+    tools:context=".Controllers.Fragments.ChatFragment">
 </FrameLayout>

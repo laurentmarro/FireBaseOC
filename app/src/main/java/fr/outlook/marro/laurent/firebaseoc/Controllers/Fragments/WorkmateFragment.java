@@ -1,4 +1,4 @@
-package fr.outlook.marro.laurent.firebaseoc.Fragments;
+package fr.outlook.marro.laurent.firebaseoc.Controllers.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import fr.outlook.marro.laurent.firebaseoc.R;
 
-public class ListFragment extends Fragment {
+public class WorkmateFragment extends Fragment {
 
-    public ListFragment() {
+    public WorkmateFragment() {
         // Required empty public constructor
     }
 
@@ -18,6 +18,6 @@ public class ListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false);
+        return inflater.inflate(R.layout.fragment_workmate, container, false);
     }
 }

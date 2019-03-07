@@ -40,4 +40,5 @@
     <string name="searchWorkmates">Collègues...</string>
     <string name="language">fr</string>
     <string name="signoutdone">Déconnexion faite</string>
+    <string name="users">Utilisateurs</string>
 </resources>

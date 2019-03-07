@@ -1,4 +1,4 @@
-package fr.outlook.marro.laurent.firebaseoc.models;
+package fr.outlook.marro.laurent.firebaseoc.Models;
 
 import android.support.annotation.Nullable;
 

@@ -1,4 +1,4 @@
-package fr.outlook.marro.laurent.firebaseoc;
+package fr.outlook.marro.laurent.firebaseoc.Controllers.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.outlook.marro.laurent.firebaseoc.Api.UserHelper;
-import fr.outlook.marro.laurent.firebaseoc.Helpers.HomeActivity;
+import fr.outlook.marro.laurent.firebaseoc.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     // User
     // --------------------
 
-    private String uid, username, email, urlPicture;
+    String uid, username, email, urlPicture;
 
     // --------------------
     // Identifier for Sign-In Activity

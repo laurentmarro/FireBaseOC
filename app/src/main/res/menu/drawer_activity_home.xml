@@ -11,6 +11,11 @@
             android:icon="@drawable/restaurant_menu_hdpi"
             android:title="@string/your_lunch" />
         <item
+            android:id="@+id/activity_chat"
+            android:icon="@drawable/com_facebook_button_send_icon_white"
+            android:title="@string/chat" />
+
+        <item
             android:id="@+id/activity_settings"
             android:icon="@drawable/settings_hdpi"
             android:title="@string/settings" />

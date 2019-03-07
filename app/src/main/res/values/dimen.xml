@@ -71,5 +71,4 @@
     <dimen name="restaurant_detail_frame_margin_top">120dp</dimen>
     <dimen name="restaurant_detail_imageview_margin">16dp</dimen>
     <dimen name="marginupanddown">56dp</dimen>
-    <dimen name="default_text_size_mini">8dp</dimen>
 </resources>
