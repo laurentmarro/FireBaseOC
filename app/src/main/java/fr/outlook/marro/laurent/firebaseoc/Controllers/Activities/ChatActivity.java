@@ -40,7 +40,6 @@ public class ChatActivity extends AppCompatActivity {
     private void configureToolBar() {
         this.toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.chat);
     }
 
     // 2 - Configure TabLayout
@@ -57,10 +56,10 @@ public class ChatActivity extends AppCompatActivity {
     // 4 - Configure ViewPagerAdapter
     private void configureViewPagerAdapter() {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new ChatFragment(), String.valueOf(R.string.chat));
-        viewPagerAdapter.addFragment(new UserFragment(), String.valueOf(R.string.users));
-
+        viewPagerAdapter.addFragment(new ChatFragment(), "CHAT");
+        viewPagerAdapter.addFragment(new UserFragment(), "USERS");
         viewPager.setAdapter(viewPagerAdapter);
 
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

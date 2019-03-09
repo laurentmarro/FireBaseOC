@@ -11,7 +11,7 @@ public class UserHelper {
     private static final String COLLECTION_NAME = "users";
 
     // --- COLLECTION REFERENCE ---
-    private static CollectionReference getUsersCollection(){
+    public static CollectionReference getUsersCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }
 
@@ -26,5 +26,6 @@ public class UserHelper {
     // --- GET ---
     public static Task<DocumentSnapshot> getUser(String uid){
         return UserHelper.getUsersCollection().document(uid).get();
+
     }
 }

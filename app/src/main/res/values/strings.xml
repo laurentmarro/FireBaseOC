@@ -47,7 +47,8 @@
     <string name="searchWorkmates">Search workmates</string>
     <string name="language">en</string>
     <string name="signoutdone">Sign out done</string>
-    <string name="chat" translatable="false">CHAT</string>
-    <string name="users">users</string>
+    <string name="chat">CHAT</string>
+    <string name="users">USERS</string>
+    <string name="no_document">Document does not exist</string>
 
 </resources>

@@ -26,5 +26,5 @@ public class User {
     public void setUid(String uid) { this.uid = uid; }
     public void setUsername(String username) { this.username = username; }
     public void setEmail(String email) { this.email = email;}
-    public void setUrlPicture(String photoURL) { this.photoURL = photoURL; }
+    public void setPhotoURL(@Nullable String photoURL) { this.photoURL = photoURL; }
 }

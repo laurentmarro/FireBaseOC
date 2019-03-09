@@ -41,4 +41,6 @@
     <string name="language">fr</string>
     <string name="signoutdone">Déconnexion faite</string>
     <string name="users">Utilisateurs</string>
+    <string name="chat">Conversation</string>
+    <string name="no_document">Le document n\'existe pas</string>
 </resources>

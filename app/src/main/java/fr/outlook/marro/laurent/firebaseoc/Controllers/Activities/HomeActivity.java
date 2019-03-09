@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity
     private static final int SIGN_OUT_TASK = 10;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
-    private String userName, photoUrl, email;
+    private String userName, photoUrl, email, uid;
     private ImageView imageViewProfile;
     private TextView textViewUsername, textViewEmail;
     private SearchView searchView;
@@ -66,6 +66,7 @@ public class HomeActivity extends AppCompatActivity
         this.configureBottomNavigationView();
         this.configureFirstFragment();
         this.updateUI();
+
     }
 
     @Override
@@ -139,7 +140,6 @@ public class HomeActivity extends AppCompatActivity
                 // ACTIVITY TO DO
                 break;
             case R.id.activity_chat:
-                Log.i("TAG", "Activity chat");
                 startChatActivity();
                 break;
             case R.id.activity_settings:
@@ -219,7 +219,8 @@ public class HomeActivity extends AppCompatActivity
     // UI
     // --------------------
 
-    protected FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
+    protected FirebaseUser getCurrentUser(){
+        return FirebaseAuth.getInstance().getCurrentUser(); }
 
     @SuppressLint("ResourceType")
     private void updateUI() {
