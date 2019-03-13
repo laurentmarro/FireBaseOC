@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity
     private static final int SIGN_OUT_TASK = 10;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
-    private String userName, photoUrl, email, uid;
+    private String userName, email, photoUrl;
     private ImageView imageViewProfile;
     private TextView textViewUsername, textViewEmail;
     private SearchView searchView;
@@ -140,30 +140,26 @@ public class HomeActivity extends AppCompatActivity
                 // ACTIVITY TO DO
                 break;
             case R.id.activity_chat:
-                startChatActivity();
+                this.startChatActivity();
                 break;
             case R.id.activity_settings:
                 Log.i("TAG", "Activity Settings");
                 // ACTIVITY TO DO
                 break;
             case R.id.activity_logout:
-                Log.i("TAG", "Activity Logout");
                 signOutUserFromFirebase();
                 break;
             case R.id.mapview:
-                Log.i("TAG", "Mapview");
                 toolbar.setTitle(R.string.im_hungry);
                 searchView.setQueryHint(getString(R.string.searchRestaurants));
                 selectedFragment = new MapFragment();
                 break;
             case R.id.listview:
-                Log.i("TAG", "Listview");
                 toolbar.setTitle(R.string.im_hungry);
                 searchView.setQueryHint(getString(R.string.searchRestaurants));
                 selectedFragment = new ListFragment();
                 break;
             case R.id.workmates:
-                Log.i("TAG", "workmates");
                 toolbar.setTitle(R.string.available_workmates);
                 searchView.setQueryHint(getString(R.string.searchWorkmates));
                 selectedFragment = new WorkmateFragment();

@@ -2,13 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:padding="@dimen/default_large_margin"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/profile_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@mipmap/ic_launcher"
+        android:layout_width="@dimen/list_restaurant_height"
+        android:layout_height="@dimen/list_restaurant_height"
+        android:src="@mipmap/ic_launcher_round"
         android:contentDescription="@string/userpicture" />
 
     <TextView
@@ -16,10 +17,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Surname_Name"
-        android:layout_marginStart="@dimen/default_large_margin"
-        android:layout_toStartOf="@+id/profile_image"
         android:layout_toEndOf="@id/profile_image"
+        android:layout_marginStart="@dimen/default_large_margin"
         android:layout_centerVertical="true"
-        android:textSize="@dimen/username_text_size" />
+        android:textColor="@color/colorPrimaryDark3"
+        android:textStyle="bold"
+        android:textSize="@dimen/surname_name_text_size" />
 
 </RelativeLayout>

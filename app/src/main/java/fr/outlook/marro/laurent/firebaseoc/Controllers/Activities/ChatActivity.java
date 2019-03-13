@@ -1,11 +1,10 @@
 package fr.outlook.marro.laurent.firebaseoc.Controllers.Activities;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import java.util.Objects;
 import fr.outlook.marro.laurent.firebaseoc.Adapter.ViewPagerAdapter;
 import fr.outlook.marro.laurent.firebaseoc.Controllers.Fragments.ChatFragment;
 import fr.outlook.marro.laurent.firebaseoc.Controllers.Fragments.UserFragment;
@@ -56,10 +55,10 @@ public class ChatActivity extends AppCompatActivity {
     // 4 - Configure ViewPagerAdapter
     private void configureViewPagerAdapter() {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new ChatFragment(), "CHAT");
+        viewPagerAdapter.addFragment(new ChatFragment(), "MESSAGES");
         viewPagerAdapter.addFragment(new UserFragment(), "USERS");
         viewPager.setAdapter(viewPagerAdapter);
-
         tabLayout.setupWithViewPager(viewPager);
     }
+
 }

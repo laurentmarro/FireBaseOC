@@ -43,4 +43,10 @@
     <string name="users">Utilisateurs</string>
     <string name="chat">Conversation</string>
     <string name="no_document">Le document n\'existe pas</string>
+    <string name="toolbar_title_mentor_chat_activity">Conservations</string>
+    <string name="button_title_mentor_chat_activity">ENVOYER</string>
+    <string name="text_input_title_mentor_chat_activity">Composer votre message</string>
+    <string name="text_view_mentor_chat_error">Cette coversation est vide pour l\'instant</string>
+    <string name="popup_title_permission_files_access">Cette application a besoin de permission pour fonctionner.</string>
+    <string name="toast_title_no_image_chosen">Aucune image choisie</string>
 </resources>

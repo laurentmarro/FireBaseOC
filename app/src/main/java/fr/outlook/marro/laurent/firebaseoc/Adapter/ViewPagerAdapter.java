@@ -5,10 +5,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
-    public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList <Fragment> fragments;
-    private ArrayList <String> titles;
+    private ArrayList<String> titles;
 
     public ViewPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
