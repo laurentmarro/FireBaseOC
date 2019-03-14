@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
         <activity
             android:name=".Controllers.Activities.MainActivity"
             android:theme="@style/AppTheme.NoTitle"
@@ -23,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Controllers.Activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -37,7 +35,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".Controllers.Activities.ChatActivity" />
-
+        <activity android:name=".Controllers.Activities.MessageActivity" />
     </application>
 
 </manifest>

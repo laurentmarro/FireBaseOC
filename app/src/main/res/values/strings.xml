@@ -49,6 +49,7 @@
     <string name="signoutdone">Sign out done</string>
     <string name="chat">CHAT</string>
     <string name="users">USERS</string>
+    <string name="messages">MESSAGES</string>
     <string name="no_document">Document does not exist</string>
     <!-- MENTOR_CHAT ACTIVITY -->
     <string name="toolbar_title_mentor_chat_activity">Chats</string>
@@ -57,7 +58,7 @@
     <string name="text_view_mentor_chat_error">This chat is empty now</string>
     <string name="popup_title_permission_files_access">This app need permission to work</string>
     <string name="toast_title_no_image_chosen">No image chosen</string>
+    <string name="type_a_message">Type a message</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

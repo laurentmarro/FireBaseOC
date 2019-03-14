@@ -29,6 +29,17 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="clipartAsset">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_send_black_24dp.xml" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="image">
                                         <value>
                                           <PersistentState>
@@ -56,7 +67,6 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="IMAGE" />
                                       <entry key="imageAsset" value="C:\Users\Laurent\AndroidStudioProjects\FirebaseOC\app\src\main\res\drawable\baseline_mic_white_18dp.png" />
                                       <entry key="outputName" value="ic_mike_for_search_bar" />
                                       <entry key="theme" value="CUSTOM" />

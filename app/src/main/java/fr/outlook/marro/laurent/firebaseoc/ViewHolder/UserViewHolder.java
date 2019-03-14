@@ -30,7 +30,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
         // Get
 
-        name = user.getUsername ();
+        name = user.getUsername();
         photo_url = user.getphotoURL();
 
         // Display

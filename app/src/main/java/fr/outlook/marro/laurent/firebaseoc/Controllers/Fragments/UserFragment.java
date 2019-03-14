@@ -53,7 +53,7 @@ public class UserFragment extends Fragment {
         // Reset lists
         this.users = new ArrayList<>();
         // Create adapter passing the list of articles
-        this.adapter = new UserAdapter(this.users, Glide.with(this));
+        this.adapter = new UserAdapter(this.getContext(),this.users, Glide.with(this));
         // Attach the adapter to the recyclerview to populate items
         this.recyclerView.setAdapter(this.adapter);
         // Set layout manager to position the items

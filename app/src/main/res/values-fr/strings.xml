@@ -18,7 +18,7 @@
     <string name="settings">REGLAGES</string>
     <string name="logout">DECONNECTION</string>
     <string name="search">Recherche</string>
-    <string name="Surname_Name">Prernom NOM</string>
+    <string name="Surname_Name">Prenom NOM</string>
     <string name="surname_name_email">prenom.nom@gmail.com</string>
     <string name="laurent_is_eating_french_le_zinc">Laurent mange français (Le Zinc)</string>
     <string name="restaurant_name">Le Zinc</string>
@@ -49,4 +49,6 @@
     <string name="text_view_mentor_chat_error">Cette coversation est vide pour l\'instant</string>
     <string name="popup_title_permission_files_access">Cette application a besoin de permission pour fonctionner.</string>
     <string name="toast_title_no_image_chosen">Aucune image choisie</string>
+    <string name="messages">Messages</string>
+    <string name="type_a_message">Tapez un message</string>
 </resources>

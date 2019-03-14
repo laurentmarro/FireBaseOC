@@ -55,10 +55,9 @@ public class ChatActivity extends AppCompatActivity {
     // 4 - Configure ViewPagerAdapter
     private void configureViewPagerAdapter() {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new ChatFragment(), "MESSAGES");
-        viewPagerAdapter.addFragment(new UserFragment(), "USERS");
+        viewPagerAdapter.addFragment(new ChatFragment(), getString(R.string.messages));
+        viewPagerAdapter.addFragment(new UserFragment(), getString(R.string.users));
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
-
 }
