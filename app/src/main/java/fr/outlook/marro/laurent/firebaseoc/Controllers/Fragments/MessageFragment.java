@@ -6,20 +6,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import butterknife.ButterKnife;
 import fr.outlook.marro.laurent.firebaseoc.R;
 
-public class ChatFragment extends Fragment {
+public class MessageFragment extends Fragment {
 
-
-    public ChatFragment() {
-        // Required empty public constructor
+    public static MessageFragment newInstance() {
+        return (new MessageFragment());
     }
 
+    public MessageFragment () { }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_message, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
-
 }

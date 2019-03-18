@@ -66,7 +66,6 @@ public class HomeActivity extends AppCompatActivity
         this.configureBottomNavigationView();
         this.configureFirstFragment();
         this.updateUI();
-
     }
 
     @Override
@@ -140,6 +139,7 @@ public class HomeActivity extends AppCompatActivity
                 // ACTIVITY TO DO
                 break;
             case R.id.activity_chat:
+                Log.i("TAG", "Activity Chat");
                 this.startChatActivity();
                 break;
             case R.id.activity_settings:
@@ -270,7 +270,6 @@ public class HomeActivity extends AppCompatActivity
             public void onSuccess(Void aVoid) {
                 switch (origin){
                     case SIGN_OUT_TASK:
-                        Log.i("TAG", getString(R.string.signoutdone));
                         startMainActivity();
                         break;
                     default:
