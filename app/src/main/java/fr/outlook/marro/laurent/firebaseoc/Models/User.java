@@ -21,10 +21,4 @@ public class User {
     public String getUsername() { return username; }
     public String getEmail() { return email;}
     public String getphotoURL() { return photoURL; }
-
-    // --- SETTERS ---
-    public void setUid(String uid) { this.uid = uid; }
-    public void setUsername(String username) { this.username = username; }
-    public void setEmail(String email) { this.email = email;}
-    public void setPhotoURL(@Nullable String photoURL) { this.photoURL = photoURL; }
 }

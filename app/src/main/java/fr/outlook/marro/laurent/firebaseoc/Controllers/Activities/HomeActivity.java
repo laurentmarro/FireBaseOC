@@ -17,7 +17,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,14 +30,11 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.Objects;
-import fr.outlook.marro.laurent.firebaseoc.Api.UserHelper;
 import fr.outlook.marro.laurent.firebaseoc.Controllers.Fragments.ListFragment;
 import fr.outlook.marro.laurent.firebaseoc.Controllers.Fragments.MapFragment;
 import fr.outlook.marro.laurent.firebaseoc.Controllers.Fragments.WorkmateFragment;
 import fr.outlook.marro.laurent.firebaseoc.R;
-import fr.outlook.marro.laurent.firebaseoc.Models.User;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -51,9 +47,9 @@ public class HomeActivity extends AppCompatActivity
     private static final int SIGN_OUT_TASK = 10;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
-    private String userName, email, photoUrl;
-    private ImageView imageViewProfile;
-    private TextView textViewUsername, textViewEmail;
+    String userName, email, photoUrl;
+    ImageView imageViewProfile;
+    TextView textViewUsername, textViewEmail;
     private SearchView searchView;
 
     @Override
@@ -139,8 +135,7 @@ public class HomeActivity extends AppCompatActivity
                 // ACTIVITY TO DO
                 break;
             case R.id.activity_chat:
-                Log.i("TAG", "Activity Chat");
-                this.startChatActivity();
+                startChatActivity();
                 break;
             case R.id.activity_settings:
                 Log.i("TAG", "Activity Settings");
@@ -225,56 +220,51 @@ public class HomeActivity extends AppCompatActivity
         View navigationViewHeaderView =  navigationView.getHeaderView(0);
 
         textViewUsername = navigationViewHeaderView.findViewById(R.id.surnameName);
-        textViewUsername.setText(userName);
         textViewEmail = navigationViewHeaderView.findViewById(R.id.surnameNameEmail);
-        textViewEmail.setText(email);
         imageViewProfile = navigationViewHeaderView.findViewById(R.id.connected_image);
 
-        // Get datas from firebase
+        // Get Data from FIREBASE or default
 
         if (this.getCurrentUser() != null) {
-            email = TextUtils.isEmpty(this.getCurrentUser().getEmail())
-                    ? getString(R.string.surname_name_email) : this.getCurrentUser().getEmail();
-
-            this.textViewEmail.setText(email);
-
-            UserHelper.getUser(Objects.requireNonNull(this.getCurrentUser()).getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    User currentUser = documentSnapshot.toObject(User.class);
-                    userName = TextUtils.isEmpty(currentUser.getUsername()) ? getString(R.string.Surname_Name) : currentUser.getUsername();
-                    textViewUsername.setText(userName);
-                }
-            });
-
-            Uri photo = this.getCurrentUser().getPhotoUrl();
-            if (photo != null) {
-                photoUrl = String.valueOf(this.getCurrentUser().getPhotoUrl());
-                Glide.with(this)
-                        .load(photoUrl)
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(imageViewProfile);
-            }
+            userName = this.getCurrentUser().getDisplayName();
+            email = this.getCurrentUser().getEmail();
+        } else {
+            userName = getString(R.string.Surname_Name);
+            email = getString(R.string.surname_name_email);
         }
+
+        // Get Picture from Firebase or default
+
+        Uri photo = this.getCurrentUser().getPhotoUrl();
+        if (photo == null) {
+            photoUrl = getString(R.string.urlnopicture);
+        } else {
+            photoUrl = String.valueOf(photo);
+        }
+
+        // DISPLAY
+        textViewUsername.setText(userName);
+        textViewEmail.setText(email);
+        Glide.with(this)
+                .load(photoUrl)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageViewProfile);
     }
 
     private void signOutUserFromFirebase(){
         AuthUI.getInstance()
                 .signOut(this)
-                .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted(SIGN_OUT_TASK));
+                .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted());
     }
 
-    private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(final int origin){
-        return new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                switch (origin){
-                    case SIGN_OUT_TASK:
-                        startMainActivity();
-                        break;
-                    default:
-                        break;
-                }
+    private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(){
+        return aVoid -> {
+            switch (HomeActivity.SIGN_OUT_TASK){
+                case SIGN_OUT_TASK:
+                    startMainActivity();
+                    break;
+                default:
+                    break;
             }
         };
     }
@@ -286,6 +276,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void startChatActivity(){
         Intent chatIntent = new Intent(this, ChatActivity.class);
+        chatIntent.putExtra("userid", this.getCurrentUser().getUid());
         startActivity(chatIntent);
     }
 }

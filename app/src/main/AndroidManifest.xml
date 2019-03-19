@@ -36,6 +36,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".Controllers.Activities.ChatActivity"/>
+        <activity android:name=".Controllers.Activities.MessageActivity" />
     </application>
 
 </manifest>
