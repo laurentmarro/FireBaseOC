@@ -21,5 +21,4 @@ public class UserHelper {
                 .document(uid)
                 .set(userToCreate);
     }
-
 }

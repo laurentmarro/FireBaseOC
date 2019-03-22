@@ -39,7 +39,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     }
 
     // UPDATE VIEW HOLDER
-
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder viewHolder, int position) {
         viewHolder.updateWithUsers(this.users.get(position), this.glide);
@@ -49,6 +48,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
         viewHolder.itemView.setOnClickListener(view -> {
             Intent messageIntent = new Intent(context, MessageActivity.class);
             messageIntent.putExtra("receiver", users.get(position).getUid());
+            messageIntent.putExtra("receiver_photo_url", users.get(position).getphotoURL());
             context.startActivity(messageIntent);
         });
     }
@@ -58,4 +58,5 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     public int getItemCount() {
         return this.users.size();
     }
+
 }

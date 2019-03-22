@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Controllers.Activities.MessageActivity">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_message"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/message_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="@dimen/marginupanddown"
+        android:layout_marginBottom="@dimen/list_restaurant_height"
+        android:scrollbars="vertical" />
+
+    <RelativeLayout
+        android:id="@+id/message_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_restaurant_height"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark3" />
+
+        <Button
+            android:id="@+id/button_add"
+            android:layout_width="@dimen/list_restaurant_height"
+            android:layout_height="@dimen/list_restaurant_height"
+            android:layout_alignParentBottom="false"
+            android:background="@drawable/ic_add_circle_black_24px" />
+
+        <Button
+            android:id="@+id/button_send"
+            android:layout_width="@dimen/list_restaurant_height"
+            android:layout_height="@dimen/list_restaurant_height"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/baseline_send_black_24" />
+
+        <EditText
+            android:id="@+id/message_text"
+            android:importantForAutofill="no"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_restaurant_height"
+            android:layout_marginStart="@dimen/list_restaurant_height"
+            android:layout_marginEnd="@dimen/list_restaurant_height"
+            android:hint="@string/write_your_message_here"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorAccentDark"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:textStyle="bold"
+            tools:ignore="UnusedAttribute" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

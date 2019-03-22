@@ -1,12 +1,13 @@
 package fr.outlook.marro.laurent.firebaseoc.Controllers.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -14,7 +15,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.outlook.marro.laurent.firebaseoc.Adapter.UserAdapter;
@@ -30,7 +30,8 @@ public class ChatActivity extends AppCompatActivity {
         ButterKnife.bind(this); //Configure Butterknife
         this.configureToolBar();
         this.configureRecyclerView();
-        this.readUsersWithoutCurrant();
+        this.retrieveAndSave();
+        this.readUsersWithoutCurrent();
     }
 
     // ---------------------
@@ -44,19 +45,21 @@ public class ChatActivity extends AppCompatActivity {
     FirebaseFirestore database;
     CollectionReference collectionReference;
     Toolbar toolbar;
+    SharedPreferences.Editor editor;
+    String userId;
 
     // ---------------------
     // CONFIGURATION
     // ---------------------
 
-    // 1 - Configure Toolbar
+    // Configure Toolbar
     private void configureToolBar() {
         this.toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.chat);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.users);
     }
 
-    // 1 - Configure RecyclerView
+    // Configure RecyclerView
     private void configureRecyclerView(){
         // Reset lists
         this.users = new ArrayList<>();
@@ -68,10 +71,20 @@ public class ChatActivity extends AppCompatActivity {
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void readUsersWithoutCurrant() {
-
+    private void retrieveAndSave() {
         Intent intent = getIntent();
-        final String userid = intent.getStringExtra("userid");
+        userId = intent.getStringExtra("userid");
+
+        // Save userId for message Activity
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = preferences.edit();
+        editor.putString("UserID",userId);
+        editor.apply();
+    }
+
+    private void readUsersWithoutCurrent() {
+
+        // updating list of users
         database = FirebaseFirestore.getInstance() ;
         collectionReference = database.collection("users");
         users.clear();
@@ -79,7 +92,7 @@ public class ChatActivity extends AppCompatActivity {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                         User user = documentSnapshot.toObject(User.class);
-                        if (!user.getUid().equals(userid)) {
+                        if (!user.getUid().equals(userId)) {
                             users.add(user);
                         }
                         adapter.notifyDataSetChanged();

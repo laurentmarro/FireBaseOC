@@ -44,4 +44,7 @@
     <string name="chat">Conversation</string>
     <string name="no_document">Le document n\'existe pas</string>
     <string name="messages">Messages</string>
+    <string name="write_your_message_here">Votre message...</string>
+    <string name="this_app_need_permission_to_function">Cette application a besoin de permission pour fonctionner.</string>
+    <string name="no_image_chosen">Aucune image choisie</string>
 </resources>
