@@ -9,58 +9,64 @@
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar_message"/>
 
+    <!-- RECYCLER VIEW CONTAINER -->
+    <LinearLayout
+        android:id="@+id/recycler_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@id/message_container"
+        android:layout_below="@id/toolbar_message">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/message_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="false"
-        android:layout_marginTop="@dimen/marginupanddown"
-        android:layout_marginBottom="@dimen/list_restaurant_height"
-        android:scrollbars="vertical" />
+        android:layout_height="match_parent" />
 
-    <RelativeLayout
+    </LinearLayout>
+
+    <!-- IMAGE CHOSEN PREVIEW -->
+    <ImageView
+        android:id="@+id/image_preview"
+        android:layout_width="@dimen/up_and_down"
+        android:layout_height="@dimen/up_and_down"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_above="@id/message_container"
+        tools:ignore="ContentDescription" />
+
+    <!-- ADD MESSAGE CONTAINER -->
+    <LinearLayout
         android:id="@+id/message_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/list_restaurant_height"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:layout_margin="@dimen/default_margin">
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimaryDark3" />
-
+        <!-- ADD FILE BUTTON -->
         <Button
-            android:id="@+id/button_add"
-            android:layout_width="@dimen/list_restaurant_height"
-            android:layout_height="@dimen/list_restaurant_height"
-            android:layout_alignParentBottom="false"
-            android:background="@drawable/ic_add_circle_black_24px" />
+            android:id="@+id/add_button"
+            android:layout_width="@dimen/up_and_down"
+            android:layout_height="@dimen/up_and_down"
+            android:background="@drawable/ic_add_circle_black_24px"/>
 
-        <Button
-            android:id="@+id/button_send"
-            android:layout_width="@dimen/list_restaurant_height"
-            android:layout_height="@dimen/list_restaurant_height"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp"
-            android:background="@drawable/baseline_send_black_24" />
-
-        <EditText
+        <!-- TEXT MESSAGE EDIT TEXT -->
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/message_text"
-            android:importantForAutofill="no"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/list_restaurant_height"
-            android:layout_marginStart="@dimen/list_restaurant_height"
-            android:layout_marginEnd="@dimen/list_restaurant_height"
-            android:hint="@string/write_your_message_here"
-            android:textAlignment="textStart"
-            android:textColor="@color/colorAccentDark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:imeOptions="actionDone"
             android:inputType="textMultiLine"
-            android:textStyle="bold"
-            tools:ignore="UnusedAttribute" />
+            android:textSize="@dimen/default_text_size"
+            android:hint="@string/write_your_message_here"/>
 
-    </RelativeLayout>
+        <!-- ADD MESSAGE BUTTON -->
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="@dimen/up_and_down"
+            android:layout_height="@dimen/up_and_down"
+            android:background="@drawable/baseline_send_black_24" />
 
+    </LinearLayout>
 
 </RelativeLayout>

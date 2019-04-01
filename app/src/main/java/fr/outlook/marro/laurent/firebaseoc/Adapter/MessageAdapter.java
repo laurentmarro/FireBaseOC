@@ -2,27 +2,40 @@ package fr.outlook.marro.laurent.firebaseoc.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.bumptech.glide.RequestManager;
-import java.util.List;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import fr.outlook.marro.laurent.firebaseoc.Models.Message;
 import fr.outlook.marro.laurent.firebaseoc.R;
 import fr.outlook.marro.laurent.firebaseoc.ViewHolder.MessageViewHolder;
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
+public class MessageAdapter extends FirestoreRecyclerAdapter<Message, MessageViewHolder> {
 
-    // FOR DATA
-    private List<Message> messages;
-    private RequestManager glide;
+    public interface Listener {
+        void onDataChanged();
+    }
+
+    //FOR DATA
+    private final RequestManager glide;
     public Context context;
 
+    //FOR COMMUNICATION
+    private Listener callback;
+
     // CONSTRUCTOR
-    public MessageAdapter(List<Message> messages, RequestManager glide) {
-        this.messages = messages;
+    public MessageAdapter(FirestoreRecyclerOptions<Message> options, RequestManager glide, Listener callback) {
+        super(options);
         this.glide = glide;
+        this.callback = callback;
+    }
+
+    // UPDATE VIEW HOLDER
+    @Override
+    protected void onBindViewHolder(@NonNull MessageViewHolder holder, int position, @NonNull Message model) {
+        holder.updateWithMessages(model, this.glide);
     }
 
     // VIEW HOLDER
@@ -36,15 +49,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         return new MessageViewHolder(view);
     }
 
-    // UPDATE VIEW HOLDER
     @Override
-    public void onBindViewHolder(@NonNull MessageViewHolder viewHolder, int position) {
-        viewHolder.updateWithMessages(this.messages.get(position), this.glide);
-    }
-
-    // RETURN THE TOTAL COUNT OF ITEMS
-    @Override
-    public int getItemCount() {
-        return this.messages.size();
+    public void onDataChanged() {
+        super.onDataChanged();
+        this.callback.onDataChanged();
     }
 }

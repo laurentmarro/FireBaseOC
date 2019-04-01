@@ -215,16 +215,15 @@ public class HomeActivity extends AppCompatActivity
 
     @SuppressLint("ResourceType")
     private void updateUI() {
+
         // Display in the drawerLayout : nav_header_home
         NavigationView navigationView = findViewById(R.id.navigationView);
         View navigationViewHeaderView =  navigationView.getHeaderView(0);
-
         textViewUsername = navigationViewHeaderView.findViewById(R.id.surnameName);
         textViewEmail = navigationViewHeaderView.findViewById(R.id.surnameNameEmail);
         imageViewProfile = navigationViewHeaderView.findViewById(R.id.connected_image);
 
         // Get Data from FIREBASE or default
-
         if (this.getCurrentUser() != null) {
             userName = this.getCurrentUser().getDisplayName();
             email = this.getCurrentUser().getEmail();
@@ -234,7 +233,6 @@ public class HomeActivity extends AppCompatActivity
         }
 
         // Get Picture from Firebase or default
-
         Uri photo = this.getCurrentUser().getPhotoUrl();
         if (photo == null) {
             photoUrl = getString(R.string.urlnopicture);
