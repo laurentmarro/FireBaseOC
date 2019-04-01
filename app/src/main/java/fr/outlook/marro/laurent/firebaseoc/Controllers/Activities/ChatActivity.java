@@ -83,7 +83,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void readUsersWithoutCurrent() {
-
         // updating list of users
         database = FirebaseFirestore.getInstance() ;
         collectionReference = database.collection("users");

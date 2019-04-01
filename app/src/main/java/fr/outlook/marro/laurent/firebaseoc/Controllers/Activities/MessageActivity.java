@@ -13,20 +13,22 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import butterknife.BindView;
@@ -39,7 +41,7 @@ import fr.outlook.marro.laurent.firebaseoc.R;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MessageActivity extends AppCompatActivity implements MessageAdapter.Listener {
+public class MessageActivity extends AppCompatActivity {
 
     // ---------------------
     // FOR DESIGN
@@ -53,13 +55,16 @@ public class MessageActivity extends AppCompatActivity implements MessageAdapter
     // FOR DATA
     // ---------------------
 
-    private MessageAdapter adapter;
+    MessageAdapter adapter;
     private String image_to_send = "";
     String userId, receiverID, currentTime, image_receiver_url, message;
     private SharedPreferences preferences;
     Toolbar toolbar;
     Date date;
     private Uri uriImageSelected;
+    List<Message> messages;
+    FirebaseFirestore database;
+    CollectionReference collectionReference;
 
     // ---------------------
     // STATIC DATA FOR PICTURE
@@ -75,8 +80,10 @@ public class MessageActivity extends AppCompatActivity implements MessageAdapter
         setContentView(R.layout.activity_message);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         ButterKnife.bind(this); //Configure ButterKnife
-        this.configureRecyclerView();
+
         this.configureToolBar();
+        this.configureRecyclerView();
+        this.readMessages();
     }
 
     @Override
@@ -139,27 +146,16 @@ public class MessageActivity extends AppCompatActivity implements MessageAdapter
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.messages);
     }
 
-    // Configure RecyclerView with a Query
+    // Configure RecyclerView
     private void configureRecyclerView(){
-        //Configure Adapter & RecyclerView
-        this.adapter = new MessageAdapter(generateOptionsForAdapter(MessageHelper.getAllMessage()),
-                Glide.with(this), this);
-        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                recyclerView.smoothScrollToPosition(adapter.getItemCount()); // Scroll to bottom on new messages
-            }
-        });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(this.adapter);
-    }
-
-    // Create options for RecyclerView from a Query
-    private FirestoreRecyclerOptions<Message> generateOptionsForAdapter(Query query){
-        return new FirestoreRecyclerOptions.Builder<Message>()
-                .setQuery(query, Message.class)
-                .setLifecycleOwner(this)
-                .build();
+        // Reset lists
+        this.messages = new ArrayList<>();
+        // Create adapter passing the list of articles
+        this.adapter = new MessageAdapter(this.messages, Glide.with(this));
+        // Attach the adapter to the recyclerview to populate items
+        this.recyclerView.setAdapter(this.adapter);
+        // Set layout manager to position the items
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     // --------------------
@@ -213,12 +209,25 @@ public class MessageActivity extends AppCompatActivity implements MessageAdapter
         return e -> Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
     }
 
-    // --------------------
-    // CALLBACK
-    // --------------------
+    private void readMessages() {
+        Intent intent = getIntent();
+        receiverID = intent.getStringExtra("receiver");
+        userId = preferences.getString("UserID",null);
 
-    @Override
-    public void onDataChanged() {
-        Log.i("TAG", "onDataChanged: " + this.adapter.getItemCount());
+        // updating list of messages
+        database = FirebaseFirestore.getInstance() ;
+        collectionReference = database.collection("chats");
+        messages.clear();
+        collectionReference.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                        Message message = documentSnapshot.toObject(Message.class);
+                            if ((message.getReceiverID().equals(receiverID))&&(message.getUserId().equals(userId))
+                            || (message.getUserId().equals(receiverID))&&(message.getReceiverID().equals(userId))) {
+                                messages.add(message);
+                            }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
     }
 }

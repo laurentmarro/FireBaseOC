@@ -17,6 +17,8 @@ import butterknife.ButterKnife;
 import fr.outlook.marro.laurent.firebaseoc.Models.Message;
 import fr.outlook.marro.laurent.firebaseoc.R;
 
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+
 public class MessageViewHolder extends RecyclerView.ViewHolder {
 
     //ROOT VIEW
@@ -40,7 +42,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         // Check if current user is the sender
 
             // Get userId from ChatActivity(getString)
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String currentUserId = preferences.getString("UserID", null);
 
         boolean isCurrentUser = message.getUserId().equals(currentUserId);
@@ -81,28 +83,5 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         } else {
             messageTextView.setBackgroundColor(R.color.colorBlue);
         }
-
-        // Update all views alignment depending is current user or not
-        this.updateDesignDependingUser(isCurrentUser);
-    }
-
-    private void updateDesignDependingUser(Boolean isSender){
-
-        // Image Receiver Position
-        RelativeLayout.LayoutParams paramsLayoutHeader = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsLayoutHeader.addRule(isSender ? RelativeLayout.ALIGN_PARENT_RIGHT : RelativeLayout.ALIGN_PARENT_LEFT);
-        this.image_receiver.setLayoutParams(paramsLayoutHeader);
-
-        // Message
-        RelativeLayout.LayoutParams paramsLayoutContent = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsLayoutContent.addRule(isSender ? RelativeLayout.LEFT_OF : RelativeLayout.RIGHT_OF, R.id.message_text);
-        this.messageTextView.setLayoutParams(paramsLayoutContent);
-
-        // Image Sent Position
-        RelativeLayout.LayoutParams paramsImageView = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsImageView.addRule(isSender ? RelativeLayout.ALIGN_LEFT : RelativeLayout.ALIGN_RIGHT, R.id.image_receiver);
-        this.image_sent.setLayoutParams(paramsImageView);
-
-        this.rootView.requestLayout();
     }
 }

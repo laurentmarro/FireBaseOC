@@ -6,46 +6,47 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/default_large_margin">
 
-    <ImageView
-        android:id="@+id/image_receiver"
-        android:layout_width="@dimen/list_restaurant_height"
-        android:layout_height="@dimen/list_restaurant_height"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:src="@drawable/com_facebook_profile_picture_blank_square"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/image_sent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/message"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="@dimen/marginupanddown"
-        android:background="@color/colorPrimaryDark3"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/list_restaurant_height"
-        android:layout_marginStart="@dimen/marginupanddown"
-        android:layout_marginEnd="0dp"
-        android:text="@string/write_your_message_here"
-        android:textColor="@color/colorPrimaryDark3"
-        android:textSize="@dimen/default_text_size" />
-
     <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/image_sent"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:text="@string/hour"
         android:textColor="@color/colorPrimaryDark3"
         android:textSize="@dimen/default_text_size"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
+    <ImageView
+        android:id="@+id/image_receiver"
+        android:layout_width="@dimen/list_restaurant_height"
+        android:layout_height="@dimen/list_restaurant_height"
+        android:layout_below="@+id/date"
+        android:layout_marginStart="0dp"
+        android:src="@drawable/com_facebook_profile_picture_blank_square"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_restaurant_height"
+        android:layout_below="@+id/date"
+        android:layout_alignStart="@+id/image_receiver"
+        android:layout_marginStart="@dimen/list_restaurant_height"
+        android:text="@string/write_your_message_here"
+        android:textColor="@color/colorPrimaryDark3"
+        android:textStyle="bold"
+        android:textSize="@dimen/default_text_size" />
+
+    <ImageView
+        android:id="@+id/image_sent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/message"
+        android:layout_alignParentStart="false"
+        android:layout_centerInParent="false"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimaryDark3"
+        tools:ignore="ContentDescription"
+        tools:layout_alignParentStart="false" />
 </RelativeLayout>
