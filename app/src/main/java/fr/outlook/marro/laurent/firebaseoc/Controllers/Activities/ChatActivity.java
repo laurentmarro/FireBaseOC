@@ -41,6 +41,7 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.user_recycler_view)
     RecyclerView recyclerView; // Declare RecyclerView
     List<User> users;
+    Intent intent;
     UserAdapter adapter;
     FirebaseFirestore database;
     CollectionReference collectionReference;
@@ -72,10 +73,12 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void retrieveAndSave() {
-        Intent intent = getIntent();
+        // userId
+        intent = getIntent();
         userId = intent.getStringExtra("userid");
 
         // Save userId for message Activity
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = preferences.edit();
         editor.putString("UserID",userId);

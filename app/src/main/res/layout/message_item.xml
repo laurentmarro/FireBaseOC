@@ -18,7 +18,7 @@
         tools:ignore="HardcodedText" />
 
     <ImageView
-        android:id="@+id/image_receiver"
+        android:id="@+id/image_sender"
         android:layout_width="@dimen/list_restaurant_height"
         android:layout_height="@dimen/list_restaurant_height"
         android:layout_below="@+id/date"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_restaurant_height"
         android:layout_below="@+id/date"
-        android:layout_alignStart="@+id/image_receiver"
+        android:layout_alignStart="@+id/image_sender"
         android:layout_marginStart="@dimen/list_restaurant_height"
         android:text="@string/write_your_message_here"
         android:textColor="@color/colorPrimaryDark3"

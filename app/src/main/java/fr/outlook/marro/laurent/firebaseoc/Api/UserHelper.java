@@ -2,6 +2,7 @@ package fr.outlook.marro.laurent.firebaseoc.Api;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import fr.outlook.marro.laurent.firebaseoc.Models.User;
 

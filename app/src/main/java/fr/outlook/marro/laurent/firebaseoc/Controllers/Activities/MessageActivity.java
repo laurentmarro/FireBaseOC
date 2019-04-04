@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -55,14 +57,16 @@ public class MessageActivity extends AppCompatActivity {
     // FOR DATA
     // ---------------------
 
-    MessageAdapter adapter;
+    private MessageAdapter adapter;
     private String image_to_send = "";
-    String userId, receiverID, currentTime, image_receiver_url, message;
+    private String time, userId, receiverID, image_sender_url, currentTime, message;
     private SharedPreferences preferences;
     Toolbar toolbar;
     Date date;
     private Uri uriImageSelected;
-    List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
+    List<Message> messageToDisplay = new ArrayList<>();
+    private List<String> messageDates = new ArrayList<>();
     FirebaseFirestore database;
     CollectionReference collectionReference;
 
@@ -107,18 +111,20 @@ public class MessageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         date = Calendar.getInstance().getTime();
         @SuppressLint("SimpleDateFormat")
-        DateFormat formatter = new SimpleDateFormat("dd/MM HH:mm");
-
-        currentTime = formatter.format(date);
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat")
+        DateFormat format = new SimpleDateFormat("dd/MM HH:mm");
+        time = formatter.format(date);
+        currentTime = format.format(date);
         userId = preferences.getString("UserID",null);
+        image_sender_url = preferences.getString("sender_photo_url", null);
         receiverID = intent.getStringExtra("receiver");
-        image_receiver_url = intent.getStringExtra("receiver_photo_url");
         message = message_text.getText().toString();
 
         // Check if the ImageView is set
         if (this.imageViewPreview.getDrawable() == null) {
             // SEND A TEXT MESSAGE
-            MessageHelper.createMessage(userId, receiverID, currentTime, image_receiver_url, image_to_send, message).addOnFailureListener(this.onFailureListener());
+            MessageHelper.createMessage(userId, receiverID, currentTime, time, image_sender_url, image_to_send, message).addOnFailureListener(this.onFailureListener());
             this.message_text.setText("");
         } else {
             // SEND A IMAGE + TEXT IMAGE
@@ -172,7 +178,7 @@ public class MessageActivity extends AppCompatActivity {
                             .requireNonNull(Objects.requireNonNull(taskSnapshot.getMetadata()).
                                     getDownloadUrl()).toString();
                     // B - SAVE MESSAGE IN FIRESTORE
-                    MessageHelper.createMessage(userId, receiverID, currentTime, image_receiver_url, image_to_send, message).addOnFailureListener(onFailureListener());
+                    MessageHelper.createMessage(userId, receiverID, currentTime, time, image_sender_url, image_to_send, message).addOnFailureListener(onFailureListener());
                 })
                 .addOnFailureListener(this.onFailureListener());
     }
@@ -213,21 +219,40 @@ public class MessageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         receiverID = intent.getStringExtra("receiver");
         userId = preferences.getString("UserID",null);
-
         // updating list of messages
         database = FirebaseFirestore.getInstance() ;
         collectionReference = database.collection("chats");
         messages.clear();
+        messageDates.clear();
+        messageToDisplay.clear();
         collectionReference.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                         Message message = documentSnapshot.toObject(Message.class);
-                            if ((message.getReceiverID().equals(receiverID))&&(message.getUserId().equals(userId))
-                            || (message.getUserId().equals(receiverID))&&(message.getReceiverID().equals(userId))) {
-                                messages.add(message);
-                            }
-                        adapter.notifyDataSetChanged();
+
+                        // Current user is receiver or sender for the same user
+                        if ((message.getReceiverID().equals(receiverID))&&(message.getUserId().equals(userId))
+                                || (message.getUserId().equals(receiverID))&&(message.getReceiverID().equals(userId)))
+                        {
+                            messageToDisplay.add(message);
+                            messageDates.add(message.getTime());
+                            Collections.sort(messageDates);
+                            Log.i("TAG", "readMessages2: "+messageDates);
+                        }
                     }
+                    this.messagesDatesClassification();
                 });
+    }
+
+    private void messagesDatesClassification() {
+        for (int i = 0; i <messageDates.size() ; i++) {
+            for (int j = 0; j < messageToDisplay.size(); j++) {
+                if (messageToDisplay.get(j).getTime().equals(messageDates.get(i))) {
+                    Log.i("TAG", ""+messageDates.get(i));
+                    messages.add(messageToDisplay.get(j));
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 }

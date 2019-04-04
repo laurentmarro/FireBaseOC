@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -51,6 +53,7 @@ public class HomeActivity extends AppCompatActivity
     ImageView imageViewProfile;
     TextView textViewUsername, textViewEmail;
     private SearchView searchView;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,6 +242,14 @@ public class HomeActivity extends AppCompatActivity
         } else {
             photoUrl = String.valueOf(photo);
         }
+
+        // Save SenderPhotoUrl for message Activity
+
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = preferences.edit();
+        editor.putString("sender_photo_url",photoUrl);
+        editor.apply();
 
         // DISPLAY
         textViewUsername.setText(userName);
