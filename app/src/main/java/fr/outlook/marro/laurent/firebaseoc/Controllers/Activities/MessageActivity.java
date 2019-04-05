@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -237,7 +236,6 @@ public class MessageActivity extends AppCompatActivity {
                             messageToDisplay.add(message);
                             messageDates.add(message.getTime());
                             Collections.sort(messageDates);
-                            Log.i("TAG", "readMessages2: "+messageDates);
                         }
                     }
                     this.messagesDatesClassification();
@@ -248,7 +246,6 @@ public class MessageActivity extends AppCompatActivity {
         for (int i = 0; i <messageDates.size() ; i++) {
             for (int j = 0; j < messageToDisplay.size(); j++) {
                 if (messageToDisplay.get(j).getTime().equals(messageDates.get(i))) {
-                    Log.i("TAG", ""+messageDates.get(i));
                     messages.add(messageToDisplay.get(j));
                 }
             }

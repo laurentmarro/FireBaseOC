@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Controllers.Activities.MessageActivity">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_message"/>
+
+    <!-- RECYCLER VIEW CONTAINER -->
+    <LinearLayout
+        android:id="@+id/recycler_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@id/message_container"
+        android:layout_below="@id/toolbar_message">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/message_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <!-- IMAGE CHOSEN PREVIEW -->
+    <ImageView
+        android:id="@+id/image_preview"
+        android:layout_width="@dimen/up_and_down"
+        android:layout_height="@dimen/up_and_down"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_above="@id/message_container"
+        tools:ignore="ContentDescription" />
+
+    <!-- ADD MESSAGE CONTAINER -->
+    <LinearLayout
+        android:id="@+id/message_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/default_margin">
+
+        <!-- ADD FILE BUTTON -->
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="@dimen/up_and_down"
+            android:layout_height="@dimen/up_and_down"
+            android:background="@drawable/ic_add_circle_black_24px"/>
+
+        <!-- TEXT MESSAGE EDIT TEXT -->
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/message_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:textSize="@dimen/default_text_size"
+            android:hint="@string/write_your_message_here"/>
+
+        <!-- ADD MESSAGE BUTTON -->
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="@dimen/up_and_down"
+            android:layout_height="@dimen/up_and_down"
+            android:background="@drawable/baseline_send_black_24" />
+
+    </LinearLayout>
+
+</RelativeLayout>

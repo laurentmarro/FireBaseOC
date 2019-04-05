@@ -245,7 +245,6 @@ public class HomeActivity extends AppCompatActivity
 
         // Save SenderPhotoUrl for message Activity
 
-
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = preferences.edit();
         editor.putString("sender_photo_url",photoUrl);
