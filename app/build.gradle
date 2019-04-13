@@ -43,13 +43,13 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     // FIREBASE
-    implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation 'com.google.firebase:firebase-firestore:18.1.0'
-    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-firestore:18.2.0'
+    implementation 'com.google.firebase:firebase-auth:16.2.1'
     implementation 'com.firebaseui:firebase-ui-auth:4.2.1'
     implementation 'com.google.firebase:firebase-storage:16.1.0'
     implementation 'com.firebaseui:firebase-ui-storage:4.2.1'
-    implementation 'com.google.firebase:firebase-messaging:17.4.0'
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
     implementation 'com.firebaseui:firebase-ui-firestore:3.2.2'
 
     // FACEBOOK

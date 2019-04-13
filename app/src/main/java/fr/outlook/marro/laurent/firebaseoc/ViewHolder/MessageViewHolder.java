@@ -1,12 +1,10 @@
 package fr.outlook.marro.laurent.firebaseoc.ViewHolder;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
@@ -18,14 +16,12 @@ import fr.outlook.marro.laurent.firebaseoc.R;
 public class MessageViewHolder extends RecyclerView.ViewHolder {
 
     //ROOT VIEW
-    @BindView(R.id.rootView) RelativeLayout rootView;
     @BindView(R.id.image_sender) ImageView image_receiver;
     @BindView(R.id.message) TextView messageTextView;
     @BindView(R.id.date) TextView date;
     @BindView(R.id.image_sent) ImageView image_sent;
 
     // FOR DATA
-    public Context context;
 
     public MessageViewHolder(@NonNull View itemView) {
         super(itemView);

@@ -13,13 +13,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -27,7 +30,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -38,11 +40,12 @@ import butterknife.OnClick;
 import fr.outlook.marro.laurent.firebaseoc.Adapter.MessageAdapter;
 import fr.outlook.marro.laurent.firebaseoc.Api.MessageHelper;
 import fr.outlook.marro.laurent.firebaseoc.Models.Message;
+import fr.outlook.marro.laurent.firebaseoc.Models.User;
 import fr.outlook.marro.laurent.firebaseoc.R;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MessageActivity extends AppCompatActivity {
+public class MessageActivity extends AppCompatActivity implements MessageAdapter.Listener {
 
     // ---------------------
     // FOR DESIGN
@@ -57,17 +60,15 @@ public class MessageActivity extends AppCompatActivity {
     // ---------------------
 
     private MessageAdapter adapter;
-    private String image_to_send = "";
-    private String time, userId, receiverID, image_sender_url, currentTime, message;
+    private String time, userId, receiverID, image_sender_url, currentTime, message, chat, image_to_send = "";
     private SharedPreferences preferences;
-    Toolbar toolbar;
-    Date date;
+    protected List<User> users = new ArrayList<>();
     private Uri uriImageSelected;
-    private List<Message> messages = new ArrayList<>();
-    List<Message> messageToDisplay = new ArrayList<>();
-    private List<String> messageDates = new ArrayList<>();
+    private int user1dNumber, receiverIDNumber;
+    Date date;
     FirebaseFirestore database;
     CollectionReference collectionReference;
+    Toolbar toolbar;
 
     // ---------------------
     // STATIC DATA FOR PICTURE
@@ -83,10 +84,8 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         ButterKnife.bind(this); //Configure ButterKnife
-
         this.configureToolBar();
-        this.configureRecyclerView();
-        this.readMessages();
+        this.getUserList();
     }
 
     @Override
@@ -107,7 +106,6 @@ public class MessageActivity extends AppCompatActivity {
 
     @OnClick(R.id.send_button)
     public void onClickSendMessage() {
-        Intent intent = getIntent();
         date = Calendar.getInstance().getTime();
         @SuppressLint("SimpleDateFormat")
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -115,15 +113,13 @@ public class MessageActivity extends AppCompatActivity {
         DateFormat format = new SimpleDateFormat("dd/MM HH:mm");
         time = formatter.format(date);
         currentTime = format.format(date);
-        userId = preferences.getString("UserID",null);
         image_sender_url = preferences.getString("sender_photo_url", null);
-        receiverID = intent.getStringExtra("receiver");
         message = message_text.getText().toString();
 
         // Check if the ImageView is set
         if (this.imageViewPreview.getDrawable() == null) {
             // SEND A TEXT MESSAGE
-            MessageHelper.createMessage(userId, receiverID, currentTime, time, image_sender_url, image_to_send, message).addOnFailureListener(this.onFailureListener());
+            MessageHelper.createMessage(chat, userId, receiverID, currentTime, time, image_sender_url, image_to_send, message).addOnFailureListener(this.onFailureListener());
             this.message_text.setText("");
         } else {
             // SEND A IMAGE + TEXT IMAGE
@@ -132,35 +128,13 @@ public class MessageActivity extends AppCompatActivity {
             image_to_send="";
             this.imageViewPreview.setImageDrawable(null);
         }
+        configureRecyclerView(chat);
     }
 
     @OnClick(R.id.add_button)
     @AfterPermissionGranted(RC_IMAGE_PERMS)
     public void onClickAddFile() {
         this.chooseImageFromPhone();
-    }
-
-    // ---------------------
-    // UI
-    // ---------------------
-
-    // Configure Toolbar
-    private void configureToolBar() {
-        this.toolbar = findViewById(R.id.toolbar_message);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.messages);
-    }
-
-    // Configure RecyclerView
-    private void configureRecyclerView(){
-        // Reset lists
-        this.messages = new ArrayList<>();
-        // Create adapter passing the list of articles
-        this.adapter = new MessageAdapter(this.messages, Glide.with(this));
-        // Attach the adapter to the recyclerview to populate items
-        this.recyclerView.setAdapter(this.adapter);
-        // Set layout manager to position the items
-        this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     // --------------------
@@ -177,7 +151,8 @@ public class MessageActivity extends AppCompatActivity {
                             .requireNonNull(Objects.requireNonNull(taskSnapshot.getMetadata()).
                                     getDownloadUrl()).toString();
                     // B - SAVE MESSAGE IN FIRESTORE
-                    MessageHelper.createMessage(userId, receiverID, currentTime, time, image_sender_url, image_to_send, message).addOnFailureListener(onFailureListener());
+                    MessageHelper.createMessage(chat, userId, receiverID, currentTime, time, image_sender_url, image_to_send, message)
+                            .addOnFailureListener(onFailureListener());
                 })
                 .addOnFailureListener(this.onFailureListener());
     }
@@ -206,6 +181,82 @@ public class MessageActivity extends AppCompatActivity {
         }
     }
 
+    // ---------------------
+    // UI
+    // ---------------------
+
+    // Configure Toolbar
+    private void configureToolBar() {
+        this.toolbar = findViewById(R.id.toolbar_message);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.messages);
+    }
+
+    private void getUserList() {
+        // updating list of users
+        users.clear();
+        database = FirebaseFirestore.getInstance();
+        collectionReference = database.collection("users");
+        collectionReference.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                User user = documentSnapshot.toObject(User.class);
+                users.add(user);
+            }
+            this.configureChatName();
+        });
+    }
+
+    private void configureChatName() {
+
+        // retrieve chat Users Id
+        Intent intent = getIntent();
+        receiverID = intent.getStringExtra("receiver");
+        userId = preferences.getString("UserID",null);
+
+        // userIdNumber & receiverIDNumber
+        for (int i = 0; i < users.size() ; i++) {
+            if (users.get(i).getUid().equals(userId)) {
+                user1dNumber = i;
+            }
+            if (users.get(i).getUid().equals(receiverID)) {
+                receiverIDNumber = i;
+            }
+        }
+
+        // creating chat name
+        if (user1dNumber > receiverIDNumber) {
+            chat= String.valueOf(receiverIDNumber)+String.valueOf(user1dNumber);
+        } else {
+            chat= String.valueOf(user1dNumber)+String.valueOf(receiverIDNumber);
+        }
+
+        // updating recyclerview
+        this.configureRecyclerView(chat);
+    }
+
+    private void configureRecyclerView(String chat){
+        //Track current chat name
+        this.chat = chat;
+
+        //Configure Adapter & RecyclerView
+        this.adapter = new MessageAdapter(generateOptionsForAdapter(MessageHelper.getAllMessageForChat(this.chat)), Glide.with(this), this);
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                recyclerView.smoothScrollToPosition(adapter.getItemCount()); // Scroll to bottom on new messages
+            }
+        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(this.adapter);
+    }
+
+    private FirestoreRecyclerOptions<Message> generateOptionsForAdapter(Query query){
+        return new FirestoreRecyclerOptions.Builder<Message>()
+                .setQuery(query, Message.class)
+                .setLifecycleOwner(this)
+                .build();
+    }
+
     // --------------------
     // ERROR HANDLER
     // --------------------
@@ -214,42 +265,12 @@ public class MessageActivity extends AppCompatActivity {
         return e -> Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
     }
 
-    private void readMessages() {
-        Intent intent = getIntent();
-        receiverID = intent.getStringExtra("receiver");
-        userId = preferences.getString("UserID",null);
-        // updating list of messages
-        database = FirebaseFirestore.getInstance() ;
-        collectionReference = database.collection("chats");
-        messages.clear();
-        messageDates.clear();
-        messageToDisplay.clear();
-        collectionReference.get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                        Message message = documentSnapshot.toObject(Message.class);
+    // --------------------
+    // CALLBACK
+    // --------------------
 
-                        // Current user is receiver or sender for the same user
-                        if ((message.getReceiverID().equals(receiverID))&&(message.getUserId().equals(userId))
-                                || (message.getUserId().equals(receiverID))&&(message.getReceiverID().equals(userId)))
-                        {
-                            messageToDisplay.add(message);
-                            messageDates.add(message.getTime());
-                            Collections.sort(messageDates);
-                        }
-                    }
-                    this.messagesDatesClassification();
-                });
-    }
-
-    private void messagesDatesClassification() {
-        for (int i = 0; i <messageDates.size() ; i++) {
-            for (int j = 0; j < messageToDisplay.size(); j++) {
-                if (messageToDisplay.get(j).getTime().equals(messageDates.get(i))) {
-                    messages.add(messageToDisplay.get(j));
-                }
-            }
-        }
-        adapter.notifyDataSetChanged();
+    @Override
+    public void OnDataChanged() {
+        Log.i("TAG", "DataChanged");
     }
 }

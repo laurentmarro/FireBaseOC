@@ -78,11 +78,11 @@ public class ChatActivity extends AppCompatActivity {
         userId = intent.getStringExtra("userid");
 
         // Save userId for message Activity
-
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = preferences.edit();
         editor.putString("UserID",userId);
         editor.apply();
+
     }
 
     private void readUsersWithoutCurrent() {
